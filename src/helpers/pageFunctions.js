@@ -1,5 +1,7 @@
 import { getWeatherByCity, searchCities } from './weatherAPI';
 
+const elementUlCities = document.getElementById('cities');
+
 /**
  * Cria um elemento HTML com as informações passadas
  */
@@ -73,11 +75,31 @@ export function showForecast(forecastList) {
   forecastContainer.classList.remove('hidden');
 }
 
+async function getCityInfo() {
+  const searchInput = document.querySelector('#search-input');
+  const term = searchInput.value;
+  const cities = await searchCities(term);
+  const { name, country, url } = cities[0];
+  const urlParam = url;
+  const dataWeather = await getWeatherByCity(urlParam);
+  const objData = {
+    name: name,
+    country: country,
+    temp: dataWeather.temp,
+    condition: dataWeather.condition,
+    icon: dataWeather.icon,
+    url: url,
+  };
+  return objData;
+}
+
 /**
  * Recebe um objeto com as informações de uma cidade e retorna um elemento HTML
  */
-export function createCityElement(cityInfo) {
-  const { name, country, temp, condition, icon /* , url */ } = cityInfo;
+export async function createCityElement(cityInfo) {
+  const dataInfo = await getCityInfo();
+  console.log('dataInfo', dataInfo);
+  const { name, country, temp, condition, icon, url } = await cityInfo;
 
   const cityElement = createElement('li', 'city');
 
@@ -104,7 +126,9 @@ export function createCityElement(cityInfo) {
   cityElement.appendChild(headingElement);
   cityElement.appendChild(infoContainer);
 
-  return cityElement;
+  // Mofifiquei:
+  elementUlCities.appendChild(cityElement);
+  return elementUlCities;
 }
 
 /**
@@ -114,13 +138,15 @@ export async function handleSearch(event) {
   event.preventDefault();
   clearChildrenById('cities');
 
+  // Acrescentei função getCityInfo para criar objeto para cityInfo:
   const searchInput = document.getElementById('search-input');
   const searchValue = searchInput.value;
   const cities = await searchCities(searchValue);
+  const renderCities = await createCityElement(getCityInfo());
 
   if (cities) {
-    const listUrl = cities.map((city) => city.url);
-    const arrayCities = listUrl.map((url) => getWeatherByCity(url));
-    await Promise.all(arrayCities);
+    const urlList = cities.map((city) => city.url);
+    const arrayCities = urlList.map((url) => getWeatherByCity(url));
+    await Promise.all([arrayCities, renderCities]);
   }
 }
