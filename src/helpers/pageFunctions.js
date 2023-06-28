@@ -80,18 +80,48 @@ async function getCityInfo() {
   const term = searchInput.value;
   const cities = await searchCities(term);
   const { name, country, url } = cities[0];
-  const urlParam = url;
-  const dataWeather = await getWeatherByCity(urlParam);
+
+  const dataWeather = await getWeatherByCity(url);
   const objData = {
-    name: name,
-    country: country,
+    name,
+    country,
     temp: dataWeather.temp,
     condition: dataWeather.condition,
     icon: dataWeather.icon,
-    url: url,
+    url,
   };
   return objData;
 }
+
+// async function getCityInfo() {
+//   try {
+//     const searchInput = document.querySelector('#search-input');
+//     const term = searchInput.value;
+//     const cities = await searchCities(term);
+
+//     const citiesList = cities.map(async (city) => {
+//       const { name, country, url } = city;
+//       const dataWeather = await getWeatherByCity(url);
+
+//       const objData = {
+//         name,
+//         country,
+//         temp: dataWeather.temp,
+//         condition: dataWeather.condition,
+//         icon: dataWeather.icon,
+//         url,
+//       };
+//       console.log('ObjData', objData);
+//       return objData;
+//     });
+
+//     const citiesData = await Promise.all(citiesList);
+//     console.log('CitiesData', citiesData);
+//     return citiesData;
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// }
 
 /**
  * Recebe um objeto com as informações de uma cidade e retorna um elemento HTML
