@@ -90,6 +90,9 @@ export async function createCityElement(cityInfo) {
   const tempElement = createElement('p', 'city-temp', `${temp}º`);
   const conditionElement = createElement('p', 'city-condition', condition);
 
+  // Cria button para previsão de 7 dias
+  const prevWeather = createElement('button', 'btn-prev-weather', 'Ver previsão');
+
   const tempContainer = createElement('div', 'city-temp-container');
   tempContainer.appendChild(conditionElement);
   tempContainer.appendChild(tempElement);
@@ -98,6 +101,7 @@ export async function createCityElement(cityInfo) {
   iconElement.src = icon.replace('64x64', '128x128');
 
   const infoContainer = createElement('div', 'city-info-container');
+  infoContainer.appendChild(prevWeather);
   infoContainer.appendChild(tempContainer);
   infoContainer.appendChild(iconElement);
 
