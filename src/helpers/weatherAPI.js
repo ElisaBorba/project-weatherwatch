@@ -37,37 +37,21 @@ export const getForecast = async (cityURL) => {
   const data = await result.json();
   const { forecastday } = data.forecast;
 
-  // forecastday.find(({ forecastday }) => date
-
-  console.log('forecastday', forecastday);
-
-  const searchData = forecastday.filter(({ day }) => {
+  const dayData = forecastday.filter(({ day, date }) => {
     return (
       day.maxtemp_c
       && day.maxtemp_f
       && day.condition.text
       && day.condition.icon
+      && date
     );
   }).map((infoDay) => ({
+    date: infoDay.date,
     maxTemp: infoDay.day.maxtemp_c,
     minTemp: infoDay.day.maxtemp_f,
     condition: infoDay.day.condition.text,
     icon: infoDay.day.condition.icon,
   }));
 
-  console.log('searchData', searchData);
-
-  // return um array:
-  // [
-  //   {
-  //     date: '2023-02-23',
-  //     maxTemp: 30.6, // temperatura em graus celsius
-  //     minTemp: 20.3, // temperatura em graus celsius
-  //     condition: 'Patchy rain possible',
-  //     icon: '//cdn.weatherapi.com/weather/64x64/day/176.png'
-  //   },
-  //   {/*Informações do segundo dia*/},
-  //   {/*Informações do terceiro dia*/},
-  //   /* etc */
-  // ]
+  console.log('dayData', dayData);
 };
