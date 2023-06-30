@@ -32,10 +32,12 @@ export const getWeatherByCity = async (cityURL) => {
 };
 
 export const getForecast = async (cityURL) => {
-  const FORECAST_URL = `http://api.weatherapi.com/v1/forecast.json?lang=pt&key=${TOKEN}&q=${cityURL}&days=${7}`;
+  const FORECAST_URL = `http://api.weatherapi.com/v1/forecast.json?lang=pt&key=${TOKEN}&q=${cityURL}&days=7`;
   const result = await fetch(FORECAST_URL);
   const data = await result.json();
   const { forecastday } = data.forecast;
+
+  console.log(forecastday);
 
   const dayData = forecastday.filter(({ day, date }) => {
     return (
@@ -48,7 +50,7 @@ export const getForecast = async (cityURL) => {
   }).map((infoDay) => ({
     date: infoDay.date,
     maxTemp: infoDay.day.maxtemp_c,
-    minTemp: infoDay.day.maxtemp_f,
+    minTemp: infoDay.day.mintemp_c,
     condition: infoDay.day.condition.text,
     icon: infoDay.day.condition.icon,
   }));
