@@ -109,9 +109,7 @@ export async function createCityElement(cityInfo) {
   cityElement.appendChild(infoContainer);
 
   prevWeatherBtn.addEventListener('click', async () => {
-    const renderForecast = showForecast(await getForecast(url));
-    console.log('renderForecast', renderForecast);
-    return renderForecast;
+    return showForecast(await getForecast(url));
   });
   cityElement.appendChild(prevWeatherBtn);
   const elementUlCities = document.getElementById('cities');
