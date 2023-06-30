@@ -39,11 +39,11 @@ export const getForecast = async (cityURL) => {
 
   const dayData = forecastday.filter(({ day, date }) => {
     return (
-      day.maxtemp_c
+      date
+      && day.maxtemp_c
       && day.maxtemp_f
       && day.condition.text
       && day.condition.icon
-      && date
     );
   }).map((infoDay) => ({
     date: infoDay.date,
@@ -52,6 +52,5 @@ export const getForecast = async (cityURL) => {
     condition: infoDay.day.condition.text,
     icon: infoDay.day.condition.icon,
   }));
-
-  console.log('dayData', dayData);
+  return dayData;
 };

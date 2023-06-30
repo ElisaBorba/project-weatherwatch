@@ -1,5 +1,7 @@
 import { getWeatherByCity, searchCities, getForecast } from './weatherAPI';
 
+const TOKEN = import.meta.env.VITE_TOKEN;
+
 /**
  * Cria um elemento HTML com as informações passadas
  */
@@ -91,7 +93,7 @@ export async function createCityElement(cityInfo) {
   const conditionElement = createElement('p', 'city-condition', condition);
 
   // Cria button para previsão de 7 dias
-  const prevWeather = createElement('button', 'btn-prev-weather', 'Ver previsão');
+  const prevWeatherBtn = createElement('button', 'btn-prev-weather', 'Ver previsão');
 
   const tempContainer = createElement('div', 'city-temp-container');
   tempContainer.appendChild(conditionElement);
@@ -101,13 +103,19 @@ export async function createCityElement(cityInfo) {
   iconElement.src = icon.replace('64x64', '128x128');
 
   const infoContainer = createElement('div', 'city-info-container');
-  infoContainer.appendChild(prevWeather);
+  infoContainer.appendChild(prevWeatherBtn);
   infoContainer.appendChild(tempContainer);
   infoContainer.appendChild(iconElement);
 
   cityElement.appendChild(headingElement);
   cityElement.appendChild(infoContainer);
 
+  prevWeatherBtn.addEventListener('click', async () => {
+    const renderForecast = showForecast(await getForecast(url));
+    console.log('renderForecast', renderForecast);
+    return renderForecast;
+  });
+  cityElement.appendChild(prevWeatherBtn);
   const elementUlCities = document.getElementById('cities');
   elementUlCities.appendChild(cityElement);
 }
@@ -126,23 +134,10 @@ export async function handleSearch(event) {
   if (cities) {
     const urlList = cities.map((city) => city.url);
     const arrayCities = urlList.map((url) => getWeatherByCity(url));
-    const forecastArray = urlList.map((url) => getForecast(url));
-
-    console.log('arrayCities', arrayCities);
-    console.log('forecastArray', forecastArray);
 
     const promiseCities = await Promise.all(arrayCities);
     promiseCities.forEach((city) => {
       createCityElement(city);
     });
-
-    const promiseForecast = await Promise.all(forecastArray);
-
-
-
-
-    // console.log('promiseCities', promiseCities);
-
-    console.log('promiseForecast', promiseForecast);
   }
 }
