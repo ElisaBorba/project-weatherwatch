@@ -5,7 +5,6 @@ export const searchCities = async (term) => {
     const WEATHER_URL = `http://api.weatherapi.com/v1/search.json?lang=pt&key=${TOKEN}&q=${term}`;
     const result = await fetch(WEATHER_URL);
     const data = await result.json();
-    // console.log(data);
 
     if (data.error || data.length === 0) throw new Error('Nenhuma cidade encontrada');
     return data;
@@ -19,7 +18,6 @@ export const getWeatherByCity = async (cityURL) => {
   const result = await fetch(CITY_URL);
   const info = await result.json();
   const { current, location } = info;
-  // console.log('getWeatherByCity', info);
 
   return {
     name: location.name,
@@ -36,8 +34,6 @@ export const getForecast = async (cityURL) => {
   const result = await fetch(FORECAST_URL);
   const data = await result.json();
   const { forecastday } = data.forecast;
-
-  console.log(forecastday);
 
   const dayData = forecastday.filter(({ day, date }) => {
     return (
