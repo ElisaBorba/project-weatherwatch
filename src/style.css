@@ -1,8 +1,6 @@
 @import url('https://fonts.cdnfonts.com/css/brie');
 
-
 @import url('https://fonts.cdnfonts.com/css/rossela');
-
 
 * {
   margin: 0;
@@ -23,8 +21,10 @@ header {
   align-items: center;
   padding: 10px 70px;
   height: 150px;
+  width: 100%;
   box-sizing: border-box;
   position: relative;
+  justify-content: center;
 }
 
 header:after {
@@ -40,10 +40,6 @@ header:after {
   z-index: -1;
 }
 
-header > img {
-  width: 80px;
-}
-
 header > form {
   margin: 0 auto;
   background-color: white;
@@ -57,11 +53,21 @@ header > form {
 header > form > input {
   border: none;
   padding: 10px 20px;
+  width: 100%;
   border-radius: 20px;
   font-size: 24px;
   flex-grow: 1;
   font-family: ROSSELA, sans-serif;
 }
+
+/* @media ( min-width : 140px ) {
+
+  header > form > input {
+    padding: 10px 100px;
+    background-color: rgb(12, 75, 192);
+  }
+} */
+
 
 header > form > input:focus {
   outline: none;

@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2';
+
 const TOKEN = import.meta.env.VITE_TOKEN;
 
 export const searchCities = async (term) => {
@@ -9,7 +11,9 @@ export const searchCities = async (term) => {
     if (data.error || data.length === 0) throw new Error('Nenhuma cidade encontrada');
     return data;
   } catch (error) {
-    alert(error.message);
+    Swal.fire({
+      background: '#fff',
+      titleText: error.message });
   }
 };
 

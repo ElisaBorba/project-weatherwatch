@@ -6,13 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>WeatherWatch</title>
+  <link rel="icon" type="image/svg" href="src/imgs/cloud-bolt-solid.svg">
   <script src="src/main.js" type="module" defer></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  
+/>
 </head>
 
 <body>
   <header>
-    <img src="./src/imgs/iChoveuIcon.png" alt="page icon">
+    <div class="animate__animated animate__swing">
+      <img height="120px" src="./src/imgs/logoicon.png" alt="page icon">
+    </div>
     <form id="search-form">
       <input type="text" name="city" placeholder="Pesquisar cidade" id="search-input" />
       <button type="submit" id="search-button">
