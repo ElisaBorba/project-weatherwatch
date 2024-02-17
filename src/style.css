@@ -53,21 +53,11 @@ header > form {
 header > form > input {
   border: none;
   padding: 10px 20px;
-  width: 100%;
   border-radius: 20px;
   font-size: 24px;
   flex-grow: 1;
   font-family: ROSSELA, sans-serif;
 }
-
-/* @media ( min-width : 140px ) {
-
-  header > form > input {
-    padding: 10px 100px;
-    background-color: rgb(12, 75, 192);
-  }
-} */
-
 
 header > form > input:focus {
   outline: none;
@@ -192,12 +182,6 @@ ul {
   font-size: 24px;
   color: white;
   cursor: pointer;
-}
-
-
-/* O QUE ISSO FAZ? */
-.city-forecast-button:hover {
-  background: rgb(0, 151, 219);
 }
 
 .forecast-container {

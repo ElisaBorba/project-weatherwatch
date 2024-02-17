@@ -11,9 +11,7 @@ export const searchCities = async (term) => {
     if (data.error || data.length === 0) throw new Error('Nenhuma cidade encontrada');
     return data;
   } catch (error) {
-    Swal.fire({
-      background: '#fff',
-      titleText: error.message });
+    Swal.fire(error.message);
   }
 };
 
